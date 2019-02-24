@@ -1,0 +1,5 @@
+*xcconfig
+bin/
+*plist
+*xcodeproj/
+*.swp
