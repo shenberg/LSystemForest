@@ -20,7 +20,7 @@ public:
         rules.push_back(rule);
     }
 
-    std::string applySystemOnce(std::string input) {
+    std::string applySystemOnce(const std::string& input) {
         std::stringstream output;
         Rule blah('a', "aaa");
         for (char c : input) {
