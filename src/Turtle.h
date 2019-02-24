@@ -37,7 +37,12 @@ public:
         rotationAngle = angle;
     }
     
+    void setDistanceRandomness(float randomness) {
+        distanceRandomness = randomness;
+    }
+    
     void draw(const std::string& commands) {
+        ofSeedRandom(6);
         ofPath path;
         path.setFilled(false);
         path.setStrokeWidth(1);
@@ -46,7 +51,7 @@ public:
         for (char c : commands) {
             if (c == 'F') {
                 ofVec2f direction(cos(currentState.angle), sin(currentState.angle));
-                currentState.position += direction * distanceToTravel;
+                currentState.position += direction * (distanceToTravel + ofRandom(0, distanceRandomness));
                 path.lineTo(currentState.position);
             } else if (c == '+') {
                 currentState.angle += rotationAngle;
@@ -72,6 +77,7 @@ private:
     
     float distanceToTravel;
     float rotationAngle;
+    float distanceRandomness;
 };
 
 #endif /* Turtle_h */
