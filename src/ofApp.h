@@ -26,4 +26,5 @@ public:
 private:
     LSystem lSystem;
     Turtle turtle;
+    std::string lSystemResult;
 };

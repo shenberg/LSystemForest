@@ -2,8 +2,14 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    lSystem.addRule(Rule('F',"+F[+F]+F--F"));
-
+    lSystem.addRule(Rule('F',"FF+[F+F-]-[F-F+]"));
+    // calculate our string by applying l-system to it
+    std::string currentString = "F";
+    for (int i = 0; i < 5; i++) {
+        currentString = lSystem.applySystemOnce(currentString);
+        //ofLogWarning() << "iteration " << i+1 << " output: " << currentString;
+    }
+    lSystemResult = currentString;
 }
 
 //--------------------------------------------------------------
@@ -14,18 +20,14 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofClear(0);
-    turtle.setPosition(ofGetWidth() / 2, ofGetHeight() / 2);
-    turtle.setCurrentAngle(0);
-    turtle.setDistanceToTravel(3);
-    turtle.setRotationAngle(0.5 + 0.5*sin(ofGetElapsedTimef() / 5));
+    //turtle.setPosition(ofGetWidth() / 2, ofGetHeight() / 2);
+    turtle.setPosition(ofGetWidth() / 2, ofGetHeight()); // bottom of the screen
+    turtle.setCurrentAngle(-PI/2); // point up
+    turtle.setDistanceToTravel(10);
+    turtle.setRotationAngle((PI/18) * (2. + sin(ofGetElapsedTimef() / 2)));
     
     ofSetColor(255, 255, 255);
-    std::string currentString = "F";
-    for (int i = 0; i < 5; i++) {
-        currentString = lSystem.applySystemOnce(currentString);
-        //ofLogWarning() << "iteration " << i+1 << " output: " << currentString;
-    }
-    turtle.draw(currentString);
+    turtle.draw(lSystemResult);
 }
 
 //--------------------------------------------------------------
