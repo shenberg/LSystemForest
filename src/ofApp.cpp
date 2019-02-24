@@ -1,5 +1,5 @@
-#include "ofApp.h"
 
+#include "ofApp.h"
 //--------------------------------------------------------------
 void ofApp::setup(){
     lSystem.addRule(Rule('F',"FF+[F+F-]-[F-F+]"));
@@ -23,8 +23,9 @@ void ofApp::draw(){
     //turtle.setPosition(ofGetWidth() / 2, ofGetHeight() / 2);
     turtle.setPosition(ofGetWidth() / 2, ofGetHeight()); // bottom of the screen
     turtle.setCurrentAngle(-PI/2); // point up
-    turtle.setDistanceToTravel(10);
-    turtle.setRotationAngle((PI/18) * (2. + sin(ofGetElapsedTimef() / 2)));
+    turtle.setDistanceToTravel(6);
+    turtle.setDistanceRandomness(20);
+    turtle.setRotationAngle((PI/18) * (2. + ofNoise(ofGetElapsedTimef()/3.)));
     
     ofSetColor(255, 255, 255);
     turtle.draw(lSystemResult);
