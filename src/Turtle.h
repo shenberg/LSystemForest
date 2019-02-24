@@ -37,7 +37,7 @@ public:
         rotationAngle = angle;
     }
     
-    void draw(std::string commands) {
+    void draw(const std::string& commands) {
         ofPath path;
         path.setFilled(false);
         path.setStrokeWidth(1);
@@ -52,6 +52,13 @@ public:
                 currentState.angle += rotationAngle;
             } else if (c == '-') {
                 currentState.angle -= rotationAngle;
+            } else if (c == '[') {
+                splitPoints.push_back(currentState);
+            } else if (c == ']') {
+                currentState = splitPoints.back();
+                // move back to split point without drawing a line to it
+                path.moveTo(currentState.position);
+                splitPoints.pop_back();
             } else {
                 ofLogWarning() << "unrecognized character: " << c;
             }
@@ -61,8 +68,9 @@ public:
     }
 private:
     TurtleState currentState;
-    float distanceToTravel;
+    std::vector<TurtleState> splitPoints;
     
+    float distanceToTravel;
     float rotationAngle;
 };
 
